@@ -9,5 +9,10 @@ public class CalculatorTest {
 	public void EmptyStringShouldReturnZero() {
 		assertEquals(0, Calculator.add(""));;
 	}
+	
+	@Test
+	public void OneNumberShouldReturnTheSameNumber(){
+		assertEquals(5, Calculator.add("5"));
+	}
 
 }
