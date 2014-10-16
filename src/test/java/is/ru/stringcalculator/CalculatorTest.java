@@ -19,4 +19,9 @@ public class CalculatorTest {
 	public void TwoNumbersShouldReturnTheirSum(){
 		assertEquals(7, Calculator.add("5,2"));
 	}
+	
+	@Test
+	public void MoreThanTwoNumbersShouldReturnTheirSum(){
+		assertEquals(11, Calculator.add("3,4,2,2"));
+	}
 }
