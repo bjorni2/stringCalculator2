@@ -29,4 +29,9 @@ public class CalculatorTest {
 	public void NewLineAsDelimiter(){
 		assertEquals(3, Calculator.add("2\n1"));
 	}
+	
+	@Test
+	public void NewLineAndCommaAsDelimiter(){
+		assertEquals(6, Calculator.add("1,2\n3"));
+	}
 }
