@@ -5,7 +5,10 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
+		return toInt(text);
+	}
+	
+	private static int toInt(String text){
 		return Integer.parseInt(text);
-			
 	}
 }
