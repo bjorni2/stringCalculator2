@@ -14,5 +14,9 @@ public class CalculatorTest {
 	public void OneNumberShouldReturnTheSameNumber(){
 		assertEquals(5, Calculator.add("5"));
 	}
-
+	
+	@Test
+	public void TwoNumbersShouldReturnTheirSum(){
+		assertEquals(7, Calculator.add("5,2"));
+	}
 }
