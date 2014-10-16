@@ -2,7 +2,15 @@ package is.ru.stringcalculator;
 
 public class Calculator {
 	public static int add(String text){
-		String[] numbers = text.split(",");
+		String[] numbers;
+		if(text.contains("\n"))
+		{
+			numbers = text.split("\n");
+		}
+		else
+		{
+			numbers = text.split(",");
+		}
 		return sum(numbers);
 	}
 	

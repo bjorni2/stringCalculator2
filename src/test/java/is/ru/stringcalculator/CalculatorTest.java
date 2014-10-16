@@ -24,4 +24,9 @@ public class CalculatorTest {
 	public void MoreThanTwoNumbersShouldReturnTheirSum(){
 		assertEquals(11, Calculator.add("3,4,2,2"));
 	}
+	
+	@Test
+	public void NewLineAsDelimiter(){
+		assertEquals(3, Calculator.add("2\n1"));
+	}
 }
