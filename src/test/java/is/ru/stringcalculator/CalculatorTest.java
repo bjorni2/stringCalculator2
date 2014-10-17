@@ -1,10 +1,16 @@
 package is.ru.stringcalculator;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class CalculatorTest {
 
+	@Rule
+    public ExpectedException thrown= ExpectedException.none();
+	
 	@Test
 	public void EmptyStringShouldReturnZero() {
 		assertEquals(0, Calculator.add(""));;
@@ -43,5 +49,12 @@ public class CalculatorTest {
 	@Test
 	public void RegexReservedCharacterAsUserSpecifiedDelimiter(){
 		assertEquals(6, Calculator.add("//+\n1+2+3"));
+	}
+	
+	@Test
+	public void NegativeNumbersShouldThrowErrorAndBeListedInErrorMessage(){
+		thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Negative numbers not allowed: -1, -3");
+        Calculator.add("-1,2,-3");
 	}
 }

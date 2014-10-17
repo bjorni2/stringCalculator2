@@ -1,5 +1,6 @@
 package is.ru.stringcalculator;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Calculator {
@@ -43,9 +44,26 @@ public class Calculator {
 	}
 	
 	private static int sum(int[] numbers){
+		ArrayList<Integer> negatives = null;
 		int sum = 0;
 		for(int i : numbers){
+			if(i < 0){
+				if(negatives == null){
+					negatives = new ArrayList<Integer>();
+				}
+				negatives.add(i);
+			}
 			sum += i;
+		}
+		if(negatives != null){
+			String prefix = "";
+			StringBuilder listOfNegatives = new StringBuilder();
+			for(int i : negatives){
+				listOfNegatives.append(prefix);
+				prefix = ", ";
+				listOfNegatives.append(i);
+			}
+			throw new IllegalArgumentException("Negative numbers not allowed: " + listOfNegatives.toString());
 		}
 		return sum;
 	}
