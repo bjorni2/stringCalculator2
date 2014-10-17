@@ -62,4 +62,9 @@ public class CalculatorTest {
 	public void NumbersBiggerThan1000ShouldBeIgnored(){
 		assertEquals(3, Calculator.add("//?\n1337?3"));
 	}
+	
+	@Test
+	public void DelimiterCanBeOfAnyLength(){
+		assertEquals(6, Calculator.add("//[***]\n1***2***3"));
+	}
 }

@@ -1,6 +1,5 @@
 package is.ru.stringcalculator;
 
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Calculator {
@@ -15,7 +14,7 @@ public class Calculator {
 	
 	private static int[] extractNumbers(String text, String delimiter) {
 		if(text.startsWith("//")){
-			text = text.substring(4);
+			text = text.substring(text.indexOf("\n") + 1);
 		}
 		String [] seperated = text.split(delimiter);
 		return toIntArray(seperated);
@@ -31,6 +30,11 @@ public class Calculator {
 
 	private static String getDelimiter(String text) {
 		if(text.startsWith("//")){
+			if(text.startsWith("//[") && text.contains("]"))
+			{
+				String delimiter = text.substring(3, text.indexOf("]"));
+				return Pattern.quote(delimiter);
+			}
 			return Pattern.quote(text.substring(2, 3));
 		}
 		else{
