@@ -57,4 +57,9 @@ public class CalculatorTest {
         thrown.expectMessage("Negative numbers not allowed: -1, -3");
         Calculator.add("-1,2,-3");
 	}
+	
+	@Test
+	public void NumbersBiggerThan1000ShouldBeIgnored(){
+		assertEquals(3, Calculator.add("//?\n1337?3"));
+	}
 }

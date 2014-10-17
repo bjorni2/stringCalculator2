@@ -50,6 +50,9 @@ public class Calculator {
 			if(i < 0){
 				addToNegativeList(i, negatives);
 			}
+			else if(i > 1000){
+				continue;
+			}
 			sum += i;
 		}
 		if(negatives.length() != 0){
