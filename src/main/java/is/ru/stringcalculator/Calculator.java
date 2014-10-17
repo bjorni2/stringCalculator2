@@ -44,28 +44,29 @@ public class Calculator {
 	}
 	
 	private static int sum(int[] numbers){
-		ArrayList<Integer> negatives = null;
+		StringBuilder negatives = new StringBuilder();
 		int sum = 0;
 		for(int i : numbers){
 			if(i < 0){
-				if(negatives == null){
-					negatives = new ArrayList<Integer>();
-				}
-				negatives.add(i);
+				addToNegativeList(i, negatives);
 			}
 			sum += i;
 		}
-		if(negatives != null){
-			String prefix = "";
-			StringBuilder listOfNegatives = new StringBuilder();
-			for(int i : negatives){
-				listOfNegatives.append(prefix);
-				prefix = ", ";
-				listOfNegatives.append(i);
-			}
-			throw new IllegalArgumentException("Negative numbers not allowed: " + listOfNegatives.toString());
+		if(negatives.length() != 0){
+			illegalArgument("Negative numbers not allowed: " + negatives.toString());
 		}
 		return sum;
+	}
+
+	private static void addToNegativeList(int i, StringBuilder negatives) {
+		if(negatives.length() != 0){
+			negatives.append(", ");
+		}
+		negatives.append(i);
+	}
+	
+	private static void illegalArgument(String message){
+		throw new IllegalArgumentException(message);
 	}
 	
 }
