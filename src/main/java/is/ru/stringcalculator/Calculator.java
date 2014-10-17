@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Calculator {
+	private static final int MAX_VALUE = 1000;
 	private static final String DEFAULT_DELIMITER = ",|\n";
 	
 	public static int add(String text){
@@ -50,7 +51,7 @@ public class Calculator {
 			if(i < 0){
 				addToNegativeList(i, negatives);
 			}
-			else if(i > 1000){
+			else if(i > MAX_VALUE){
 				continue;
 			}
 			sum += i;
