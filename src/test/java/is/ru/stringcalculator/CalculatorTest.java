@@ -34,4 +34,9 @@ public class CalculatorTest {
 	public void NewLineAndCommaAsDelimiter(){
 		assertEquals(6, Calculator.add("1,2\n3"));
 	}
+	
+	@Test
+	public void UserSpecifiedDelimiter(){
+		assertEquals(5, Calculator.add("//%\n3%2"));
+	}
 }
