@@ -39,4 +39,9 @@ public class CalculatorTest {
 	public void UserSpecifiedDelimiter(){
 		assertEquals(5, Calculator.add("//%\n3%2"));
 	}
+	
+	@Test
+	public void RegexReservedCharacterAsUserSpecifiedDelimiter(){
+		assertEquals(6, Calculator.add("//+\n1+2+3"));
+	}
 }

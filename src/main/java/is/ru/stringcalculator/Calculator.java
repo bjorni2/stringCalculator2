@@ -1,10 +1,12 @@
 package is.ru.stringcalculator;
 
+import java.util.regex.Pattern;
+
 public class Calculator {
 	public static int add(String text){
 		String delimiter;
 		if(text.startsWith("//")){
-			delimiter = text.substring(2, 3);
+			delimiter = Pattern.quote(text.substring(2, 3));
 			text = text.substring(4);
 		}
 		else{
