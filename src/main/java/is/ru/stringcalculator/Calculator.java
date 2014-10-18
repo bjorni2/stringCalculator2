@@ -1,8 +1,10 @@
 package is.ru.stringcalculator;
 
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Calculator {
+	private static final String USER_SPECIFIED_DELIMITER_PREFIX = "//";
 	private static final int MAX_VALUE = 1000;
 	private static final String DEFAULT_DELIMITER = ",|\n";
 	
@@ -13,7 +15,7 @@ public class Calculator {
 	}
 	
 	private static int[] extractNumbers(String text, String delimiter) {
-		if(text.startsWith("//")){
+		if(text.startsWith(USER_SPECIFIED_DELIMITER_PREFIX)){
 			text = text.substring(text.indexOf("\n") + 1);
 		}
 		String [] seperated = text.split(delimiter);
@@ -29,34 +31,18 @@ public class Calculator {
 	}
 
 	private static String getDelimiter(String text) {
-		if(text.startsWith("//")){
-			if(text.startsWith("//[") && text.contains("]"))
-			{
-				String delimiterPart = text.substring(2, text.indexOf("\n"));
-				StringBuilder delimiter = new StringBuilder();
-				StringBuilder currDelimiter = new StringBuilder();
-				for(int i = 0; i < delimiterPart.length(); i++)
-				{
-					char curr = delimiterPart.charAt(i);
-					if(curr == '['){
-						continue;
-					}
-					else if(curr == ']'){
-						if(delimiter.length() != 0){
-							delimiter.append("|");
-						}
-						
-						String tmp = currDelimiter.toString();
-						currDelimiter = new StringBuilder();
-						delimiter.append(Pattern.quote(tmp));
-					}
-					else{
-						currDelimiter.append(curr);
-					}
-				}
-				return delimiter.toString();
+		if(text.startsWith(USER_SPECIFIED_DELIMITER_PREFIX)){
+			String delimiterPart  = text.substring(2, text.indexOf("\n"));
+			if(delimiterPart.length() == 1){
+				return Pattern.quote(delimiterPart);
 			}
-			return Pattern.quote(text.substring(2, 3));
+			Pattern delimiterPattern = Pattern.compile("(\\[([^\\]]*)\\])");
+			Matcher delimiterMatcher = delimiterPattern.matcher(delimiterPart);
+			StringBuilder delimiter = new StringBuilder();
+			while(delimiterMatcher.find()){
+				appendStringList(Pattern.quote(delimiterMatcher.group(2)), delimiter, "|");
+			}
+			return delimiter.toString();
 		}
 		else{
 			return DEFAULT_DELIMITER;
@@ -74,7 +60,7 @@ public class Calculator {
 		int sum = 0;
 		for(int i : numbers){
 			if(i < 0){
-				addToNegativeList(i, negatives);
+				appendStringList(i, negatives, ", ");
 			}
 			else if(i > MAX_VALUE){
 				continue;
@@ -87,11 +73,11 @@ public class Calculator {
 		return sum;
 	}
 
-	private static void addToNegativeList(int i, StringBuilder negatives) {
-		if(negatives.length() != 0){
-			negatives.append(", ");
+	private static void appendStringList(Object item, StringBuilder sb, String delimiter) {
+		if(sb.length() != 0){
+			sb.append(delimiter);
 		}
-		negatives.append(i);
+		sb.append(item);
 	}
 	
 	private static void illegalArgument(String message){
