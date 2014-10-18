@@ -7,6 +7,7 @@ public class Calculator {
 	private static final String USER_SPECIFIED_DELIMITER_PREFIX = "//";
 	private static final int MAX_VALUE = 1000;
 	private static final String DEFAULT_DELIMITER = ",|\n";
+	private static final Pattern DELIMITER_PATTERN = Pattern.compile("(\\[([^\\]]*)\\])");
 	
 	public static int add(String text){
 		String delimiter = getDelimiter(text);
@@ -36,8 +37,7 @@ public class Calculator {
 			if(delimiterPart.length() == 1){
 				return Pattern.quote(delimiterPart);
 			}
-			Pattern delimiterPattern = Pattern.compile("(\\[([^\\]]*)\\])");
-			Matcher delimiterMatcher = delimiterPattern.matcher(delimiterPart);
+			Matcher delimiterMatcher = DELIMITER_PATTERN.matcher(delimiterPart);
 			StringBuilder delimiter = new StringBuilder();
 			while(delimiterMatcher.find()){
 				appendStringList(Pattern.quote(delimiterMatcher.group(2)), delimiter, "|");
