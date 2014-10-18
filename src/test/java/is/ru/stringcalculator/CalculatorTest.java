@@ -69,7 +69,12 @@ public class CalculatorTest {
 	}
 	
 	@Test
-	public void MultipleUserSpecifiedDelimites(){
+	public void MultipleUserSpecifiedDelimiters(){
 		assertEquals(6, Calculator.add("//[*][%]\n1*2%3"));
+	}
+	
+	@Test
+	public void MultipleVariableLengthUserSpecifiedDelimiters(){
+		assertEquals(6, Calculator.add("//[%%%][??][k]\n1k2%%%2??1"));
 	}
 }
