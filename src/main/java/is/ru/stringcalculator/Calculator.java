@@ -32,8 +32,29 @@ public class Calculator {
 		if(text.startsWith("//")){
 			if(text.startsWith("//[") && text.contains("]"))
 			{
-				String delimiter = text.substring(3, text.indexOf("]"));
-				return Pattern.quote(delimiter);
+				String delimiterPart = text.substring(2, text.indexOf("\n"));
+				StringBuilder delimiter = new StringBuilder();
+				StringBuilder currDelimiter = new StringBuilder();
+				for(int i = 0; i < delimiterPart.length(); i++)
+				{
+					char curr = delimiterPart.charAt(i);
+					if(curr == '['){
+						continue;
+					}
+					else if(curr == ']'){
+						if(delimiter.length() != 0){
+							delimiter.append("|");
+						}
+						
+						String tmp = currDelimiter.toString();
+						currDelimiter = new StringBuilder();
+						delimiter.append(Pattern.quote(tmp));
+					}
+					else{
+						currDelimiter.append(curr);
+					}
+				}
+				return delimiter.toString();
 			}
 			return Pattern.quote(text.substring(2, 3));
 		}

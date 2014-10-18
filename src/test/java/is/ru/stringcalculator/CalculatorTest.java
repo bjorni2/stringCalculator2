@@ -67,4 +67,9 @@ public class CalculatorTest {
 	public void DelimiterCanBeOfAnyLength(){
 		assertEquals(6, Calculator.add("//[***]\n1***2***3"));
 	}
+	
+	@Test
+	public void MultipleUserSpecifiedDelimites(){
+		assertEquals(6, Calculator.add("//[*][%]\n1*2%3"));
+	}
 }
